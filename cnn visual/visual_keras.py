@@ -1,4 +1,4 @@
-#%%
+#%% Libs
 import visualkeras as vk
 import numpy as np
 import keras
@@ -8,11 +8,10 @@ from keras.losses import categorical_crossentropy
 from keras.optimizers import Adadelta
 from keras.utils import to_categorical
 from PIL import ImageFont
-
+import matplotlib.pyplot as plt
 from tensorflow.python.keras.layers import ZeroPadding2D
 from collections import defaultdict
-
-#%%
+#%% Model Creation
 num_classes = 10
 img_rows, img_cols = 28, 28
 
@@ -32,20 +31,19 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adadelta(),
               metrics=['accuracy'])
 
-#%%
+#%% Model Visualization
 color_map = defaultdict(dict)
-color_map[Conv2D]['fill'] = '#F6C85F'  # Yellow
+color_map[Conv2D]['fill'] = '#2A6A99'  # Dark blue
+color_map[Conv2D]['text'] = 'Convolutional'
 color_map[ZeroPadding2D]['fill'] = '#D0D3D4'  # Light gray
-color_map[Dropout]['fill'] = '#CA472F'  # Red 
-color_map[MaxPooling2D]['fill'] =  '#9DD866' #Green
-color_map[Dense]['fill'] = '#8DDDD0'  # Light blue
-color_map[Flatten]['fill'] = '#FFA056'  # Orange
+color_map[Dropout]['fill'] = '#9ECBED'  # Very Light Blue
+color_map[MaxPooling2D]['fill'] =  '#3C97DA' #Medium Blue
+color_map[Dense]['fill'] = '#326B77'  # Dark Teal
+color_map[Flatten]['fill'] = '#DDDDDD'  # Gray
 
 font = ImageFont.truetype("arial.ttf", 18)
 
 
-vk.layered_view(model, 
+vk.layered_view(model, to_file='my_keras_model.png',
                 legend=True, font=font, color_map=color_map, scale_xy=10,
-                spacing=15, draw_funnel = False, shade_step=35).show()
-
-# %%
+                spacing=30, draw_funnel = False, shade_step=25).show()
