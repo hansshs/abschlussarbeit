@@ -10,6 +10,7 @@ from keras.utils import to_categorical
 #%%
 def open_model (model_path):
     model = load_model(model_path)
+    print("\nModel opened sucessfully!\n")
     return model
 
 def open_data(data_path):
@@ -22,6 +23,8 @@ def open_data(data_path):
     x_test = data['x_test']
     x_train = data['x_train']
     y_test = data['y_test']
+    
+    print("\nData opened sucessfully!\n")
     return x_test, x_train, y_test
 
 def evaluate_model(model, x_test):
@@ -33,16 +36,6 @@ def evaluate_model(model, x_test):
     y_pred = model.predict(x_test)
     y_pred_classes = np.argmax(y_pred, axis=1)
     return y_pred_classes
-
-def confusion_matrix(y_test, y_pred_classes):
-    '''
-    Creates the Confusion Matrix of the problem
-
-    y_test: Comes from the 'open_data' function
-    y_pred_classes: Comes from the 'evaluate_model' function
-    '''
-    confusion_mat = confusion_matrix(y_test, y_pred_classes)
-    return confusion_mat
 
 def loss_accuracy(y_test, x_test, model):
     '''
