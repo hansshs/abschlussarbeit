@@ -1,18 +1,25 @@
 import functions_matrix as fm
-from sklearn.metrics import confusion_matrix
-#Paths
-model_path = "C:\\Users\\Hans Herbert Schulz\\Desktop\\UFSC\\TCC\\2_gits\\abschlussarbeit\\testing models\\Sandbox\\updated_model.h5"
-data_path  = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party1.npz"
+#from sklearn.metrics import confusion_matrix
+import os
+
+for model_path in fm.model_paths:
 
 #Model and NPZ acquisition
-my_model = fm.open_model(model_path)
-x_test, x_train, y_test   = fm.open_data(data_path)
+    my_model = fm.open_model(model_path)
+    title = os.path.basename(os.path.dirname(model_path))
+    x_test, x_train, y_test = fm.open_data(fm.data_path)
 
 #Evaluate Model
-y_classes = fm.evaluate_model(my_model, x_test)
+    y_classes = fm.evaluate_model(my_model, x_test)
 
 #Generate Conf Matrix
-confusion_mat = confusion_matrix(y_test, y_classes)
+    confusion_mat = fm.confusion_matrix(y_test, y_classes)
+    output_path = os.path.join(fm.output_folder, f"{title}_confusion_matrix_npz1.png")
+
+# Generate Metrics and Print
+    loss, accuracy = fm.loss_accuracy(y_test, x_test, my_model)
+    precision, recall,f1_score = fm.other_metrics(confusion_mat, y_test, y_classes)
+    fm.print_terminal(loss, accuracy, precision, recall, f1_score,title)
 
 #Plot Matrix
-fm.plot_matrix(confusion_mat)
+    fm.plot_matrix(confusion_mat, output_path,title)

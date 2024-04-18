@@ -6,6 +6,15 @@ from sklearn.metrics import confusion_matrix, f1_score
 from keras.models import load_model
 from keras.utils import to_categorical
 
+#Paths
+model_paths = []
+for i in range(1, 6):
+    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0007\FedAvg\T_mnist{}\updated_model.h5".format(i))
+    #model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\14072023\MNIST-0007\T_mnist{}\compiled_keras.h5".format(i))
+
+
+data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party1.npz"
+output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Confusion Matrix Plots\IPT0007\FedAvg"
 
 #%%
 def open_model (model_path):
@@ -60,31 +69,38 @@ def other_metrics(confusion_mat, y_test, y_pred_classes):
     '''
     precision = np.diag(confusion_mat) / np.sum(confusion_mat, axis=0)
     recall = np.diag(confusion_mat) / np.sum(confusion_mat, axis=1)
-    f1_score_macro = f1_score(y_test, y_pred_classes, average='macro')
-    f1_score_micro = f1_score(y_test, y_pred_classes, average='micro')
+    #f1_score_macro = f1_score(y_test, y_pred_classes, average='macro')
+    #f1_score_micro = f1_score(y_test, y_pred_classes, average='micro')
     f1_score = 2 * (precision * recall) / (precision + recall)
 
-    return precision, recall, f1_score_macro, f1_score_micro, f1_score
+    return precision, recall, f1_score
 
-def print_terminal(loss, accuracy, precision, recall, f1_score):
+def print_terminal(loss, accuracy, precision, recall, f1_score, title=None):
     # Print other metrics
-    print(f"Loss: {loss}")
-    print(f"Accuracy: {accuracy}")
-    print("Precision:", precision)
-    print("Recall:", recall)
-    print("F1 Score:", f1_score)
+    print(f"Loss {title}: {loss:.3f}")
+    print(f"Accuracy{title}: {accuracy:.3f}")
+    print(f"Precision {title}: {precision[0]:.3f}")
+    print(f"Recall {title}: {recall[0]:.3f}")
+    print(f"F1 Score {title}: {f1_score[0]:.3f}")
 
-def plot_matrix(confusion_mat):
+def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
     '''
     Plots the final Confusion Matrix
     '''
     plt.figure(figsize=(8, 6))
-    plt.imshow(confusion_mat, interpolation='nearest')
-    plt.title('Confusion Matrix')
+    plt.imshow(confusion_mat, interpolation='nearest', cmap='Blues')
+    plt.title(title)
     plt.colorbar()
     tick_marks = np.arange(10)
     plt.xticks(tick_marks, range(10))
     plt.yticks(tick_marks, range(10))
     plt.xlabel('Predicted Label')
     plt.ylabel('True Label')
-    plt.show()
+    #plt.show()
+
+        # Save plot if output_path is provided
+    if output_path:
+        plt.savefig(output_path)
+        print(f"{title} saved succesfully!")
+    else:
+        print(f"Error saving plot {title}")
