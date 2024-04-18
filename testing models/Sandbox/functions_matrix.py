@@ -6,15 +6,18 @@ from sklearn.metrics import confusion_matrix, f1_score
 from keras.models import load_model
 from keras.utils import to_categorical
 
+
+#Se precisar alterar algo no código, basta alterar as variáveis model_paths, data_paths e output_folder. O resto se resolve
+
+
 #Paths
 model_paths = []
 for i in range(1, 6):
-    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0007\FedAvg\T_mnist{}\updated_model.h5".format(i))
-    #model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\14072023\MNIST-0007\T_mnist{}\compiled_keras.h5".format(i))
+    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0311\IterAvg\Tmnist{}\updated_model.h5".format(i))
+output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Confusion Matrix Plots\IPT0007\IterAvg"
 
 
-data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party1.npz"
-output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Confusion Matrix Plots\IPT0007\FedAvg"
+data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party2.npz"
 
 #%%
 def open_model (model_path):
@@ -34,6 +37,7 @@ def open_data(data_path):
     y_test = data['y_test']
     
     print("\nData opened sucessfully!\n")
+    print(len(x_test), len(x_train), len(x_test)+len(x_train))
     return x_test, x_train, y_test
 
 def evaluate_model(model, x_test):
@@ -77,19 +81,28 @@ def other_metrics(confusion_mat, y_test, y_pred_classes):
 
 def print_terminal(loss, accuracy, precision, recall, f1_score, title=None):
     # Print other metrics
-    print(f"Loss {title}: {loss:.3f}")
-    print(f"Accuracy{title}: {accuracy:.3f}")
-    print(f"Precision {title}: {precision[0]:.3f}")
-    print(f"Recall {title}: {recall[0]:.3f}")
-    print(f"F1 Score {title}: {f1_score[0]:.3f}")
+    filename = f"metrics_npz0_{title}.txt"
+    with open(filename, "w") as file:
+        # Print other metrics to the file
+        file.write(f"Loss {title}: {loss:.4f}\n")
+        file.write(f"Accuracy {title}: {accuracy:.4f}\n")
+        file.write(f"Precision {title}: {precision[0]:.4f}\n")
+        file.write(f"Recall {title}: {recall[0]:.4f}\n")
+        file.write(f"F1 Score {title}: {f1_score[0]:.4f}\n")
+
+    print(f"Loss {title}: {loss:.4f}")
+    print(f"Accuracy{title}: {accuracy:.4f}")
+    print(f"Precision {title}: {precision[0]:.4f}")
+    print(f"Recall {title}: {recall[0]:.4f}")
+    print(f"F1 Score {title}: {f1_score[0]:.4f}")
 
 def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
     '''
     Plots the final Confusion Matrix
     '''
     plt.figure(figsize=(8, 6))
-    plt.imshow(confusion_mat, interpolation='nearest', cmap='Blues')
-    plt.title(title)
+    plt.imshow(confusion_mat, interpolation='nearest', cmap='Greens')
+    plt.title(f"Confusion Matrix FedSDG {title}")
     plt.colorbar()
     tick_marks = np.arange(10)
     plt.xticks(tick_marks, range(10))

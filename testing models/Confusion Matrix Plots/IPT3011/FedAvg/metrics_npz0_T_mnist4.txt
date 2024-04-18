@@ -1,0 +1,5 @@
+Loss T_mnist1: 0.8650
+Accuracy T_mnist1: 0.8763
+Precision T_mnist1: 0.8967
+Recall T_mnist1: 0.9589
+F1 Score T_mnist1: 0.9268

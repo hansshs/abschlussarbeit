@@ -1,0 +1,5 @@
+Loss Tmnist3: 1.0644
+Accuracy Tmnist3: 0.8826
+Precision Tmnist3: 0.8858
+Recall Tmnist3: 0.9556
+F1 Score Tmnist3: 0.9193
