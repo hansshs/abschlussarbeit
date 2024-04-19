@@ -101,7 +101,7 @@ def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
     Plots the final Confusion Matrix
     '''
     plt.figure(figsize=(8, 6))
-    plt.imshow(confusion_mat, interpolation='nearest', cmap='Greens')
+    plt.imshow(confusion_mat, interpolation='nearest', cmap='Oranges')
     plt.title(f"Confusion Matrix FedSDG {title}")
     plt.colorbar()
     tick_marks = np.arange(10)
