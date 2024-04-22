@@ -13,11 +13,11 @@ from keras.utils import to_categorical
 #Paths
 model_paths = []
 for i in range(1, 6):
-    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0311\IterAvg\Tmnist{}\updated_model.h5".format(i))
-output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Confusion Matrix Plots\IPT0007\IterAvg"
+    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0007\FedAvg\T_mnist{}\updated_model.h5".format(i))
+output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\New Plots"
 
 
-data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party2.npz"
+data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party3.npz"
 
 #%%
 def open_model (model_path):
@@ -102,7 +102,7 @@ def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
     '''
     plt.figure(figsize=(8, 6))
     plt.imshow(confusion_mat, interpolation='nearest', cmap='Oranges')
-    plt.title(f"Confusion Matrix FedSDG {title}")
+    plt.title(title)
     plt.colorbar()
     tick_marks = np.arange(10)
     plt.xticks(tick_marks, range(10))
