@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, f1_score
 from keras.models import load_model
 from keras.utils import to_categorical
+import csv
 
 
 #Se precisar alterar algo no código, basta alterar as variáveis model_paths, data_paths e output_folder. O resto se resolve
@@ -13,11 +14,11 @@ from keras.utils import to_categorical
 #Paths
 model_paths = []
 for i in range(1, 6):
-    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0007\FedAvg\T_mnist{}\updated_model.h5".format(i))
+    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0311\IterAvg\Tmnist{}\updated_model.h5".format(i))
 output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\New Plots"
 
 
-data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party3.npz"
+data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party1.npz"
 
 #%%
 def open_model (model_path):
@@ -81,20 +82,33 @@ def other_metrics(confusion_mat, y_test, y_pred_classes):
 
 def print_terminal(loss, accuracy, precision, recall, f1_score, title=None):
     # Print other metrics
-    filename = f"metrics_npz0_{title}.txt"
-    with open(filename, "w") as file:
-        # Print other metrics to the file
-        file.write(f"Loss {title}: {loss:.4f}\n")
-        file.write(f"Accuracy {title}: {accuracy:.4f}\n")
-        file.write(f"Precision {title}: {precision[0]:.4f}\n")
-        file.write(f"Recall {title}: {recall[0]:.4f}\n")
-        file.write(f"F1 Score {title}: {f1_score[0]:.4f}\n")
+    filename = f"new_metrics_npz0{title}.csv"
+
+ # Prepare data for writing
+    data = {
+        "Metric": ["Loss", "Accuracy", "F1 Score (global)", "Precision (global)", "Recall (global)"],
+        "Value": [f"{loss:.4f}", f"{accuracy:.4f}", f"{np.mean(f1_score):.4f}", f"{np.mean(precision):.4f}", f"{np.mean(recall):.4f}"]
+    }
+        # Add precision and recall to the data
+    for i in range(len(precision)):
+        data[f"Precision class {i}"] = [f"{precision[i]:.4f}"]
+        data[f"Recall class {i}"] = [f"{recall[i]:.4f}"]
+        data[f"F1 Score class {i}"] = [f"{f1_score[i]:.4f}"]
+
+   # Write data to CSV file
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Metric', 'Value'])
+        for metric, value in data.items():
+            writer.writerow([metric, value])
 
     print(f"Loss {title}: {loss:.4f}")
     print(f"Accuracy{title}: {accuracy:.4f}")
-    print(f"Precision {title}: {precision[0]:.4f}")
-    print(f"Recall {title}: {recall[0]:.4f}")
-    print(f"F1 Score {title}: {f1_score[0]:.4f}")
+    for i in range(len(precision)):
+        print(f"Precision class {i}: {precision[i]:.4f}")
+        print(f"Recall class {i}: {recall[i]:.4f}")
+        print(f"F1 Score class {i}: {f1_score[i]:.4f}")
+    print(f"F1 Score global: {np.mean(f1_score):.4f}\n\n")
 
 def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
     '''
