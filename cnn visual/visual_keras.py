@@ -32,6 +32,7 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               metrics=['accuracy'])
 
 #%% Model Visualization
+'''
 color_map = defaultdict(dict)
 color_map[Conv2D]['fill'] = '#2A6A99'  # Dark blue
 color_map[Conv2D]['text'] = 'Convolutional'
@@ -40,10 +41,20 @@ color_map[Dropout]['fill'] = '#9ECBED'  # Very Light Blue
 color_map[MaxPooling2D]['fill'] =  '#3C97DA' #Medium Blue
 color_map[Dense]['fill'] = '#326B77'  # Dark Teal
 color_map[Flatten]['fill'] = '#DDDDDD'  # Gray
+'''
+
+color_map = defaultdict(dict)
+color_map[Conv2D]['fill'] = '#106D57'  # Dark IPT Green
+color_map[Conv2D]['text'] = 'Convolutional'
+#color_map[ZeroPadding2D]['fill'] = '#D0D3D4'  # Light gray
+color_map[Dropout]['fill'] = '#B9E1D8'  # Very Light Green IPT
+color_map[MaxPooling2D]['fill'] =  '#179C7D'  # IPT Green
+color_map[Dense]['fill'] = '#326B77'  # Dark Teal
+color_map[Flatten]['fill'] = '#DDDDDD'  # Gray
 
 font = ImageFont.truetype("arial.ttf", 18)
 
 
-vk.layered_view(model, to_file='my_keras_model.png',
+vk.layered_view(model, to_file='my_keras_model2.png',
                 legend=True, font=font, color_map=color_map, scale_xy=10,
                 spacing=30, draw_funnel = False, shade_step=25).show()

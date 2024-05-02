@@ -1,0 +1,44 @@
+Loss T_mnist1: 0.7848
+Accuracy T_mnist1: 0.8840
+Precision class 0: 0.8966
+Recall class 0: 0.9617
+F1 Score class 0: 0.9280
+
+Precision class 1: 0.9463
+Recall class 1: 0.9898
+F1 Score class 1: 0.9675
+
+Precision class 2: 0.9660
+Recall class 2: 0.8518
+F1 Score class 2: 0.9053
+
+Precision class 3: 0.8580
+Recall class 3: 0.8914
+F1 Score class 3: 0.8744
+
+Precision class 4: 0.8991
+Recall class 4: 0.8516
+F1 Score class 4: 0.8747
+
+Precision class 5: 0.9332
+Recall class 5: 0.7694
+F1 Score class 5: 0.8434
+
+Precision class 6: 0.9067
+Recall class 6: 0.9252
+F1 Score class 6: 0.9158
+
+Precision class 7: 0.8474
+Recall class 7: 0.8969
+F1 Score class 7: 0.8715
+
+Precision class 8: 0.7857
+Recall class 8: 0.8568
+F1 Score class 8: 0.8197
+
+Precision class 9: 0.8101
+Recall class 9: 0.8285
+F1 Score class 9: 0.8192
+
+F1 Score global: 0.8820
+
