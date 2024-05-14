@@ -5,27 +5,27 @@ from keras.models import load_model
 from keras.utils import to_categorical
 
 # Load the trained model
-model = load_model('/kaggle/input/updated-thesis-results/updated_model.h5')
+model = load_model(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\trained_model.h5")
 
 # Load the data
-data = np.load('/kaggle/input/updated-thesis-results/data_party1.npz')
+data = np.load(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party1.npz")
 x_test = data['x_test']
 x_train = data['x_train']
 y_test = data['y_test']
 
-#print(len(x_test), len(x_train), len(x_test)+len(x_train))
+print(len(x_test), len(x_train), len(x_test)+len(x_train))
 
 # Evaluate the model
 y_pred = model.predict(x_test)
 y_pred_classes = np.argmax(y_pred, axis=1)
 
-confusion_mat = confusion_matrix(y_test, y_pred_classes)
+confusion_mat = confusion_matrix(y_test, y_pred_classes)    
 
 # Calculate Loss and Accuracy
 num_classes = len(np.unique(y_test))
 y_test_onehot = to_categorical(y_test, num_classes=num_classes)
 
-loss, accuracy = model.evaluate(x_test, y_test_onehot, verbose=0)
+loss, accuracy = model.evaluate(x_test, y_test, verbose=0)
 
 # Calculate precision, recall, and F1 score
 precision = np.diag(confusion_mat) / np.sum(confusion_mat, axis=0)
@@ -44,7 +44,7 @@ print("F1 Score:", f1_score)
 # Plot the confusion matrix
 plt.figure(figsize=(8, 6))
 plt.imshow(confusion_mat, interpolation='nearest')
-plt.title('Confusion Matrix')
+plt.title('Confusion Matrix Monolythic')
 plt.colorbar()
 tick_marks = np.arange(10)
 plt.xticks(tick_marks, range(10))
