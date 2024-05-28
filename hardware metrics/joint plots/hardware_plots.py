@@ -1,7 +1,8 @@
 import os
 import matplotlib.pyplot as plt
 
-directory = r'C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\hardware metrics\IPT0311\IterAvg'
+#directory = r'C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\hardware metrics\IPT0311\IterAvg'
+directory = r'C:\Users\Hans Herbert Schulz\Desktop\new_colored_plots\IterAvg\IPT-0007'
 
 image_files = [f for f in os.listdir(directory) if f.endswith('.png')]
 print(image_files)
@@ -24,7 +25,12 @@ fig.delaxes(axes[1,1])
 plt.tight_layout()
 
 # Save the figure as a PNG
-plt.savefig('0311_fedSDG_xp5.png')
+output_folder = r'C:\Users\Hans Herbert Schulz\Desktop\new_colored_plots\Joint'
+
+# Save the figure in the output folder
+output_path = os.path.join(output_folder, '0007_IterAvg_xp5.png')
+plt.savefig(output_path)
+#plt.savefig('0007_FedAvg_xp2.png')
 
 # Show the figure
 plt.show()
