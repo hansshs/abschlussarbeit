@@ -14,11 +14,11 @@ import csv
 #Paths
 model_paths = []
 for i in range(1, 6):
-    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0311\IterAvg\Tmnist{}\updated_model.h5".format(i))
-output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\New Plots"
+    model_paths.append(r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\Official Xp\26072023\MNIST-0007\FedAvg\T_mnist{}\updated_model.h5".format(i))
+output_folder = r"C:\Users\Hans Herbert Schulz\Desktop\New_MAT_Plots"
 
 
-data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party1.npz"
+data_path   = r"C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Sandbox\data_party3.npz"
 
 #%%
 def open_model (model_path):
@@ -110,12 +110,12 @@ def print_terminal(loss, accuracy, precision, recall, f1_score, title=None):
         print(f"F1 Score class {i}: {f1_score[i]:.4f}")
     print(f"F1 Score global: {np.mean(f1_score):.4f}\n\n")
 
-def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
+def plot_matrix(confusion_mat, f1_score_metric,output_path=None, title='Confusion Matrix'):
     '''
     Plots the final Confusion Matrix
     '''
     plt.figure(figsize=(8, 6))
-    plt.imshow(confusion_mat, interpolation='nearest', cmap='Oranges')
+    plt.imshow(confusion_mat, interpolation='nearest', cmap='Blues')
     plt.title(title)
     plt.colorbar()
     tick_marks = np.arange(10)
@@ -124,6 +124,9 @@ def plot_matrix(confusion_mat, output_path=None, title='Confusion Matrix'):
     plt.xlabel('Predicted Label')
     plt.ylabel('True Label')
     #plt.show()
+      # Annotate F1 scores
+    for i in range(confusion_mat.shape[0]):
+        plt.text(i, i, f"{f1_score_metric[i]:.2f}", ha='center', va='center', color='white')
 
         # Save plot if output_path is provided
     if output_path:

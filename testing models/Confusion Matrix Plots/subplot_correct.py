@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # Define the directory containing your PNG files
 #directory = r'C:\Users\Hans Herbert Schulz\Desktop\UFSC\TCC\2_gits\abschlussarbeit\testing models\Confusion Matrix Plots\IPT0007\IterAvg'
-directory = r'C:\Users\Hans Herbert Schulz\Desktop\New Plots'
+directory = r'C:\Users\Hans Herbert Schulz\Desktop\New_MAT_Plots\FedSDG'
 
 # List all PNG files in the directory
 image_files = [f for f in os.listdir(directory) if f.endswith('.png')]
@@ -28,7 +28,7 @@ for i, (image_file, ax) in enumerate(zip(image_files[1:5], axes.flatten())):
 plt.tight_layout()
 
 # Save the figure as a PNG
-plt.savefig('fedavg_subplot_figure.png')
+plt.savefig('fedsdg_subplot_figure.png')
 
 # Show the figure
 plt.show()
